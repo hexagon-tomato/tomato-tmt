@@ -103,18 +103,9 @@ EOF
 ```bash
 
 cat << 'EOF' > src/TOMATO.sol
-=======
-## 4. コントラクト作成
-
-`src/TOMATO.sol`
-
-```solidity
->>>>>>> d4136da (Add README at repo root)
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
-
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-
 contract TOMATO is ERC20 {
     constructor() ERC20("TOMATO", "TMT") {
         _mint(msg.sender, 1_000_000 ether);
@@ -305,11 +296,11 @@ chain 11155111：Sepolia テストネットのチェーンID
 
 コマンド実行結果：
 
-![Screenshot]("C:\Users\tell5\Pictures\Screenshots\comand.png")
+![Screenshot](.\docs\comand.png)
 
 Sepoliaテストネットにデプロイしたトランザクション詳細：
 
-![Sepolia Transaction Screenshot]("C:\Users\tell5\Pictures\Screenshots\ethscan.png")
+![Sepolia Transaction Screenshot](.\docs\ethscan.png)
 ---
 
 ## 8. デプロイ確認
