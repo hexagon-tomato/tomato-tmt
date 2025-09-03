@@ -6,8 +6,8 @@
 ERC20 トークン **TOMATO (TMT)** を作成し、テストネット **Sepolia** にデプロイする手順をまとめたものです。
 
 作成した**TOMATO (TMT)トークン**は次のリンクから確認できます。
- [View on Etherscan (Sepolia)]
-(https://sepolia.etherscan.io/token/0x99f81904A33b5a40E4EAF8758a0c2FbAB2E658E5)
+ [Etherscan (Sepolia)]
+<https://sepolia.etherscan.io/token/0x99f81904A33b5a40E4EAF8758a0c2FbAB2E658E5>
 ---
 
 ## ゴール
@@ -424,13 +424,11 @@ ABI (Application Binary Interface) は、**スマートコントラクトの「�
 
 例: `TOMATO.sol` をビルドした場合
 ```
-
 out/
 └─ TOMATO.sol/
 ├─ TOMATO.json       # ← この中に "abi": \[...] が入っている
 └─ TOMATO.dbg.json   # デバッグ用情報
-
-````
+```
 
 
 
