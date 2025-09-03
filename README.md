@@ -1,14 +1,13 @@
 
 ````markdown
-
-
-このリポジトリは **Foundry** と **OpenZeppelin** を使って  
-ERC20 トークン **TOMATO (TMT)** を作成し、テストネット **Sepolia** にデプロイする手順をまとめたものです。    
-=======
 # TOMATO (TMT) ERC20 Token on Sepolia
 
 このリポジトリは **Foundry** と **OpenZeppelin** を使って  
-ERC20 トークン **TOMATO (TMT)** を作成し、テストネット **Sepolia** にデプロイする手順をまとめたものです。  
+ERC20 トークン **TOMATO (TMT)** を作成し、テストネット **Sepolia** にデプロイする手順をまとめたものです。
+
+作成した**TOMATO (TMT)トークン**は次のリンクから確認できます。
+ [View on Etherscan (Sepolia)]
+(https://sepolia.etherscan.io/token/0x99f81904A33b5a40E4EAF8758a0c2FbAB2E658E5)
 ---
 
 ## ゴール
@@ -16,9 +15,7 @@ ERC20 トークン **TOMATO (TMT)** を作成し、テストネット **Sepolia*
 - TOMATO (TMT) トークンを作る  
 - Sepolia テストネットにデプロイする  
 - デプロイ後にトークン情報を確認できる  
-- 作成した**TOMATO (TMT)トークン**は次のリンクから確認できます。
- [View on Etherscan (Sepolia)]
-(https://sepolia.etherscan.io/token/0x99f81904A33b5a40E4EAF8758a0c2FbAB2E658E5)
+
 =======
 ---
 
