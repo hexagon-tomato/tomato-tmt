@@ -223,7 +223,6 @@ ETHERSCAN_API_KEY=<任意>
 ### `script/DeployTOMATO.s.sol`
 
 ```solidity
->>>>>>> d4136da (Add README at repo root)
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
@@ -296,11 +295,11 @@ chain 11155111：Sepolia テストネットのチェーンID
 
 コマンド実行結果：
 
-![Screenshot](.\docs\comand.png)
+![Screenshot](./docs/command.png)
 
 Sepoliaテストネットにデプロイしたトランザクション詳細：
 
-![Sepolia Transaction Screenshot](.\docs\ethscan.png)
+![Sepolia Transaction Screenshot](./docs/ethscan.png)
 ---
 
 ## 8. デプロイ確認
@@ -422,14 +421,10 @@ ABI (Application Binary Interface) は、**スマートコントラクトの「�
 #### ABI はどこに生成される？
 `forge build` を実行すると、`out/` ディレクトリに生成される **`.json` ファイル** の中に含まれています。
 
-例: `TOMATO.sol` をビルドした場合
 ```
+例: `TOMATO.sol` をビルドした場合
 out/
 └─ TOMATO.sol/
 ├─ TOMATO.json       # ← この中に "abi": \[...] が入っている
 └─ TOMATO.dbg.json   # デバッグ用情報
 ```
-
-
-
-
