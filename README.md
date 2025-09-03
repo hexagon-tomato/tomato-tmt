@@ -2,46 +2,45 @@
 ````markdown
 # TOMATO (TMT) ERC20 Token on Sepolia
 
-このリポジトリは **Foundry** と **OpenZeppelin** を使って  
-ERC20 トークン **TOMATO (TMT)** を作成し、テストネット **Sepolia** にデプロイする手順をまとめたものです。
+このリポジトリでは **Foundry** と **OpenZeppelin** を使って  
+ERC20 トークン **TOMATO (TMT)** を作成し、テストネット **Sepolia** にデプロイする手順をまとめています。
 
-作成した**TOMATO (TMT)トークン**は次のリンクから確認できます。
+作成した **TOMATO (TMT) トークン** は以下のリンクから確認できます。  
 
-<a href="https://sepolia.etherscan.io/token/0x99f81904A33b5a40E4EAF8758a0c2FbAB2E658E5">Etherscanで確認</a>
+ [Etherscan で確認](https://sepolia.etherscan.io/token/0x99f81904A33b5a40E4EAF8758a0c2FbAB2E658E5)
 
-## ゴール
+---
 
-- TOMATO (TMT) トークンを作る  
+## 🎯 ゴール
+- TOMATO (TMT) トークンを作成する  
 - Sepolia テストネットにデプロイする  
-- デプロイ後にトークン情報を確認できる  
+- デプロイ後にトークン情報を Etherscan で確認できる  
 
 ---
 
-## 1. 事前準備
+##  1. 事前準備
 
-### 必要なもの
-- Windows + Git Bash または WSL  
-  （Linux / macOS ユーザーは通常の bash でOK）
-- Node.js LTS（`node -v` で確認）
-- Foundry（`forge`, `cast`, `anvil` が使える状態）
+以下の環境を用意してください。
+
+- **Windows + Git Bash** または **WSL**  
+  （Linux / macOS の場合は通常の bash でOK）
+- **Node.js LTS** （`node -v` で確認）
+- **Foundry** （`forge`, `cast`, `anvil` が利用可能な状態）
 
 ---
-## 2. プロジェクト作成
+
+##  2. プロジェクト作成
 
 ```bash
-#Foundry プロジェクトの雛形を作成
+# Foundry プロジェクトの雛形を作成
 forge init my-project
-#カレントディレクトリを my-project に移動する
+
+# プロジェクトディレクトリへ移動
 cd my-project
-#.git/ フォルダが作成されて、バージョン管理ができるようになる。
-git init
 
-mkdir amm-origin && cd amm-origin
-forge init amm-origin
-cd amm-origin
+# Git リポジトリを初期化
 git init
-````
-
+```
 ---
 
 ## 3. OpenZeppelin ライブラリ導入
@@ -72,16 +71,27 @@ remappings = [
 EOF
 ```
 ---
-src = "src" 
-コントラクト（Solidity ファイル）のソースコードを置くフォルダを src/ にする
-out = "out"
-コンパイル結果（ABI やバイトコードなど）を出力するフォルダ
-libs = ["lib"]
-外部ライブラリを配置するフォルダを lib/ に指定
-remappings
-インポートのパス変換ルール
-Solidity のコード内で import "@openzeppelin/contracts/token/ERC20/ERC20.sol"; と書いたとき、
-lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.solを参照するようになる
+- `src = "src"`  
+  コントラクト（Solidity ファイル）のソースコードを置くフォルダ  
+
+- `out = "out"`  
+  コンパイル結果（ABI やバイトコードなど）を出力するフォルダ  
+
+- `libs = ["lib"]`  
+  外部ライブラリを配置するフォルダ  
+
+- `remappings`  
+  インポートのパス変換ルール  
+  例: Solidity のコード内で  
+  ```solidity
+  import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+  ```  
+  と書いたとき、実際には  
+  ```
+  lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol
+  ```  
+  を参照するようになる  
+
 ---
 
 ## 4. コントラクト`src/TOMATO.sol`を作成
@@ -99,49 +109,38 @@ contract TOMATO is ERC20 {
 }
 EOF
 ```
+---
+## 📖 コード解説
 
-: '
-1. // SPDX-License-Identifier: MIT
+1. `// SPDX-License-Identifier: MIT`  
+   - このコードのライセンスを指定  
+   - Solidity では SPDX ライセンス表記が必須  
 
-意味: このコードのライセンスを指定している
+2. `pragma solidity ^0.8.24;`  
+   - Solidity コンパイラのバージョンを指定  
+   - `^0.8.24` → **0.8.24 以上、0.9.0 未満**  
 
-Solidity では SPDX ライセンス表記が必須
+3. `import "@openzeppelin/contracts/token/ERC20/ERC20.sol";`  
+   - OpenZeppelin が提供する **ERC20 標準実装** を読み込む  
 
-2. pragma solidity ^0.8.24;
+4. `contract TOMATO is ERC20`  
+   - `TOMATO` というコントラクトを定義  
+   - OpenZeppelin の **ERC20** を継承  
+   - 継承により「転送」「残高確認」「承認」などの基本機能が自動的に利用可能  
 
-意味: Solidity コンパイラのバージョン指定
+5. `constructor() ERC20("TOMATO", "TMT")`  
+   - デプロイ時に実行される **コンストラクタ**  
+   - 親クラス `ERC20` のコンストラクタを呼び出し、  
+     - トークン名: **"TOMATO"**  
+     - シンボル: **"TMT"**  
+     を設定  
 
-^0.8.24 → 0.8.24 以上、0.9.0 未満 のバージョンで動く
+6. `_mint(msg.sender, 1_000_000 ether);`  
+   - デプロイしたアドレス（`msg.sender`）に **100万 TOMATO トークン** を発行  
+   - `ether` は ERC20 の最小単位（10^18 wei）を扱うための書き方  
+   - 実際には **100万 × 10^18** 単位のトークンを発行することになる  
+   - つまりユーザー視点では **100万 TOMATO** を受け取る  
 
-3. import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-
-意味: OpenZeppelin が提供する ERC20 の標準実装を読み込む
-
-4. contract TOMATO is ERC20
-
-意味: TOMATO というコントラクトを定義し、OpenZeppelin の ERC20 を継承する
-
-継承により、ERC20 トークンの基本機能（転送、残高確認、承認など）が自動的に使える
-
-5. constructor() ERC20("TOMATO", "TMT")
-
-意味: デプロイ時に実行される「コンストラクタ」
-
-ERC20("TOMATO", "TMT") → 親クラスのコンストラクタを呼び出し、トークン名とシンボルを設定
-
-名前: "TOMATO"
-
-シンボル: "TMT"
-
-6. _mint(msg.sender, 1_000_000 ether);
-
-意味: デプロイした人（msg.sender）に 100万 TOMATO トークンを発行する
-
-ether は ERC20 の 最小単位（10^18 wei 相当） を扱うための書き方
-
-つまり「100万 * 10^18」単位のトークンを発行する
-
-これは実質的に 100万 TOMATO トークン
 ---
 
 ## 5. テストコード(削除)
@@ -186,12 +185,6 @@ EOF
 ---
 ## 7. デプロイ手順（Sepolia）
 
----
-### \<YOUR\_ADDRESS> とは？
-
-* `.env` の **PRIVATE\_KEY に対応する自分のウォレットアドレス（EOA）**
-* faucet や残高確認に使う公開アドレス
-
 確認コマンド:
 
 ```bash
@@ -233,22 +226,8 @@ Sepoliaテストネットにデプロイしたトランザクション詳細：
 
 ![Sepolia Transaction Screenshot](./docs/ethscan.png)
 ---
-
 ## 8. デプロイ確認
- <ADDR>はコントラクトアドレスに置き換えて。
-
-```bash
-forge script script/DeployTOMATO.s.sol:DeployTOMATO \
-  --rpc-url $SEPOLIA_RPC_URL \
-  --broadcast \
-  --chain 11155111 \
-  -vvvv
-```
----
-
-## 8. デプロイ確認
-
->>>>>>> d4136da (Add README at repo root)
+デプロイ後に表示されたコントラクトアドレスを `<ADDR>` に置き換えて実行します。
 ```bash
 cast code <ADDR> --rpc-url $SEPOLIA_RPC_URL | wc -c
 
@@ -260,7 +239,6 @@ SUPPLY=$(cast call <ADDR> "totalSupply()(uint256)" --rpc-url $SEPOLIA_RPC_URL | 
 cast --to-unit "$SUPPLY" ether
 # => 1000000
 ```
-
 ---
 
 ## 9. （任意）Etherscan 検証
@@ -297,9 +275,8 @@ MetaMask → 「トークンをインポート」 → コントラクトアド�
 * **残高不足** → Sepolia faucet から ETH 補充
 
 ---
-
-##  ファイル構成（完成形）
-
+##  プロジェクト構成
+```text
 amm-origin/
 ├─ foundry.toml
 ├─ .gitignore
@@ -312,8 +289,7 @@ amm-origin/
 │  └─ TOMATO.t.sol
 └─ script/
    └─ DeployTOMATO.s.sol
----
-
+```
 ##  ライセンス
 
 このリポジトリのコードは **MIT License** のもとで公開されています。
