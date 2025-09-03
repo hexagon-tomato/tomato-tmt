@@ -6,8 +6,8 @@
 ERC20 トークン **TOMATO (TMT)** を作成し、テストネット **Sepolia** にデプロイする手順をまとめたものです。
 
 作成した**TOMATO (TMT)トークン**は次のリンクから確認できます。
-[Etherscanで確認](https://sepolia.etherscan.io/token/0x99f81904A33b5a40E4EAF8758a0c2FbAB2E658E5)
----
+
+<a href="https://sepolia.etherscan.io/token/0x99f81904A33b5a40E4EAF8758a0c2FbAB2E658E5">Etherscanで確認</a>
 
 ## ゴール
 
@@ -15,7 +15,6 @@ ERC20 トークン **TOMATO (TMT)** を作成し、テストネット **Sepolia*
 - Sepolia テストネットにデプロイする  
 - デプロイ後にトークン情報を確認できる  
 
-=======
 ---
 
 ## 1. 事前準備
@@ -27,7 +26,6 @@ ERC20 トークン **TOMATO (TMT)** を作成し、テストネット **Sepolia*
 - Foundry（`forge`, `cast`, `anvil` が使える状態）
 
 ---
-
 ## 2. プロジェクト作成
 
 ```bash
@@ -38,7 +36,6 @@ cd my-project
 #.git/ フォルダが作成されて、バージョン管理ができるようになる。
 git init
 
-=======
 mkdir amm-origin && cd amm-origin
 forge init amm-origin
 cd amm-origin
@@ -64,11 +61,6 @@ forge remappings | grep openzeppelin
 
 ```bash
 cat << 'EOF' > foundry.toml
-=======
-### `foundry.toml`
-
-```toml
->>>>>>> d4136da (Add README at repo root)
 [profile.default]
 src = "src"
 out = "out"
@@ -79,22 +71,17 @@ remappings = [
 ]
 EOF
 ```
-#src = "src" 
-#コントラクト（Solidity ファイル）のソースコードを置くフォルダを src/ にする
-
-#out = "out"
-#コンパイル結果（ABI やバイトコードなど）を出力するフォルダ
-
-#libs = ["lib"]
-#外部ライブラリを配置するフォルダを lib/ に指定
-
-#remappings
-#インポートのパス変換ルール
-#Solidity のコード内で import "@openzeppelin/contracts/token/ERC20/ERC20.sol"; と書いたとき、
-#lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.solを参照するようになる
-=======
-
-
+---
+src = "src" 
+コントラクト（Solidity ファイル）のソースコードを置くフォルダを src/ にする
+out = "out"
+コンパイル結果（ABI やバイトコードなど）を出力するフォルダ
+libs = ["lib"]
+外部ライブラリを配置するフォルダを lib/ に指定
+remappings
+インポートのパス変換ルール
+Solidity のコード内で import "@openzeppelin/contracts/token/ERC20/ERC20.sol"; と書いたとき、
+lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.solを参照するようになる
 ---
 
 ## 4. コントラクト`src/TOMATO.sol`を作成
@@ -155,10 +142,6 @@ ether は ERC20 の 最小単位（10^18 wei 相当） を扱うための書き�
 つまり「100万 * 10^18」単位のトークンを発行する
 
 これは実質的に 100万 TOMATO トークン
-'
-
-=======
-
 ---
 
 ## 5. テストコード(削除)
@@ -203,7 +186,6 @@ EOF
 ---
 ## 7. デプロイ手順（Sepolia）
 
-=======
 ---
 ### \<YOUR\_ADDRESS> とは？
 
@@ -223,7 +205,6 @@ cast wallet address $PRIVATE_KEY
 * faucet や残高確認に使う公開アドレス
 
 ### 残高確認（省略可能）
-=======
 ```
 
 ### 残高確認
@@ -233,17 +214,12 @@ cast balance <YOUR_ADDRESS> --rpc-url $SEPOLIA_RPC_URL
 ```
 
 ### シミュレーション（省略可能）
-=======
-### シミュレーション
-
 ```bash
 forge script script/DeployTOMATO.s.sol:DeployTOMATO \
   --rpc-url $SEPOLIA_RPC_URL \
   -vvvv
 ```
-
 ### 本番デプロイ
-
 ```bash
 forge script script/DeployTOMATO.s.sol:DeployTOMATO --rpc-url "$SEPOLIA_RPC_URL" --broadcast --chain 11155111 -vvvv
 ```
@@ -260,8 +236,8 @@ Sepoliaテストネットにデプロイしたトランザクション詳細：
 
 ## 8. デプロイ確認
  <ADDR>はコントラクトアドレスに置き換えて。
- 
-=======
+
+```bash
 forge script script/DeployTOMATO.s.sol:DeployTOMATO \
   --rpc-url $SEPOLIA_RPC_URL \
   --broadcast \
@@ -323,7 +299,6 @@ MetaMask → 「トークンをインポート」 → コントラクトアド�
 ---
 
 ##  ファイル構成（完成形）
-=======
 
 amm-origin/
 ├─ foundry.toml
