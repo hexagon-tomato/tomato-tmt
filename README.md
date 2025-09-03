@@ -6,8 +6,7 @@
 ERC20 トークン **TOMATO (TMT)** を作成し、テストネット **Sepolia** にデプロイする手順をまとめたものです。
 
 作成した**TOMATO (TMT)トークン**は次のリンクから確認できます。
- [Etherscan (Sepolia)]
-<https://sepolia.etherscan.io/token/0x99f81904A33b5a40E4EAF8758a0c2FbAB2E658E5>
+[Etherscanで確認](https://sepolia.etherscan.io/token/0x99f81904A33b5a40E4EAF8758a0c2FbAB2E658E5)
 ---
 
 ## ゴール
@@ -79,6 +78,7 @@ remappings = [
   "@openzeppelin/=lib/openzeppelin-contracts/"
 ]
 EOF
+```
 #src = "src" 
 #コントラクト（Solidity ファイル）のソースコードを置くフォルダを src/ にする
 
@@ -92,9 +92,8 @@ EOF
 #インポートのパス変換ルール
 #Solidity のコード内で import "@openzeppelin/contracts/token/ERC20/ERC20.sol"; と書いたとき、
 #lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.solを参照するようになる
-
 =======
-```
+
 
 ---
 
@@ -159,41 +158,10 @@ ether は ERC20 の 最小単位（10^18 wei 相当） を扱うための書き�
 '
 
 =======
-```
 
 ---
 
-## 5. テストコード
-
-`test/TOMATO.t.sol`
-
-```solidity
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.24;
-
-import "forge-std/Test.sol";
-import "../src/TOMATO.sol";
-
-contract TOMATOTest is Test {
-    TOMATO token;
-
-    function setUp() public {
-        token = new TOMATO();
-    }
-
-    function testName() public {
-        assertEq(token.name(), "TOMATO");
-    }
-
-    function testSymbol() public {
-        assertEq(token.symbol(), "TMT");
-    }
-
-    function testTotalSupply() public {
-        assertEq(token.totalSupply(), 1_000_000 ether);
-    }
-}
-```
+## 5. テストコード(削除)
 
 実行:
 
@@ -216,13 +184,6 @@ PRIVATE_KEY=0x<YOUR_PRIVATE_KEY>
 
 ```bash
 cat << 'EOF' > script/DeployTOMATO.s.sol
-=======
-ETHERSCAN_API_KEY=<任意>
-```
-
-### `script/DeployTOMATO.s.sol`
-
-```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
@@ -243,12 +204,7 @@ EOF
 ## 7. デプロイ手順（Sepolia）
 
 =======
-```
-
 ---
-
-## 7. デプロイ手順（Sepolia）
-
 ### \<YOUR\_ADDRESS> とは？
 
 * `.env` の **PRIVATE\_KEY に対応する自分のウォレットアドレス（EOA）**
@@ -368,7 +324,7 @@ MetaMask → 「トークンをインポート」 → コントラクトアド�
 
 ##  ファイル構成（完成形）
 =======
-```
+
 amm-origin/
 ├─ foundry.toml
 ├─ .gitignore
@@ -381,16 +337,12 @@ amm-origin/
 │  └─ TOMATO.t.sol
 └─ script/
    └─ DeployTOMATO.s.sol
-```
-
 ---
 
 ##  ライセンス
 
-
 このリポジトリのコードは **MIT License** のもとで公開されています。
 誰でも自由に利用・改変・再配布が可能ですが、利用は自己責任でお願いします。
-
 ---
 
 ##  用語集
@@ -421,10 +373,9 @@ ABI (Application Binary Interface) は、**スマートコントラクトの「�
 #### ABI はどこに生成される？
 `forge build` を実行すると、`out/` ディレクトリに生成される **`.json` ファイル** の中に含まれています。
 
-```
-例: `TOMATO.sol` をビルドした場合
+
+#例: `TOMATO.sol` をビルドした場合
 out/
 └─ TOMATO.sol/
 ├─ TOMATO.json       # ← この中に "abi": \[...] が入っている
 └─ TOMATO.dbg.json   # デバッグ用情報
-```
