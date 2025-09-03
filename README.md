@@ -4,7 +4,11 @@
 
 このリポジトリは **Foundry** と **OpenZeppelin** を使って  
 ERC20 トークン **TOMATO (TMT)** を作成し、テストネット **Sepolia** にデプロイする手順をまとめたものです。    
+=======
+# TOMATO (TMT) ERC20 Token on Sepolia
 
+このリポジトリは **Foundry** と **OpenZeppelin** を使って  
+ERC20 トークン **TOMATO (TMT)** を作成し、テストネット **Sepolia** にデプロイする手順をまとめたものです。  
 ---
 
 ## ゴール
@@ -14,8 +18,8 @@ ERC20 トークン **TOMATO (TMT)** を作成し、テストネット **Sepolia*
 - デプロイ後にトークン情報を確認できる  
 - 作成した**TOMATO (TMT)トークン**は次のリンクから確認できます。
  [View on Etherscan (Sepolia)]
- (https://sepolia.etherscan.io/token/0x99f81904A33b5a40E4EAF8758a0c2FbAB2E658E5)
-
+(https://sepolia.etherscan.io/token/0x99f81904A33b5a40E4EAF8758a0c2FbAB2E658E5)
+=======
 ---
 
 ## 1. 事前準備
@@ -38,6 +42,11 @@ cd my-project
 #.git/ フォルダが作成されて、バージョン管理ができるようになる。
 git init
 
+=======
+mkdir amm-origin && cd amm-origin
+forge init amm-origin
+cd amm-origin
+git init
 ````
 
 ---
@@ -59,6 +68,11 @@ forge remappings | grep openzeppelin
 
 ```bash
 cat << 'EOF' > foundry.toml
+=======
+### `foundry.toml`
+
+```toml
+>>>>>>> d4136da (Add README at repo root)
 [profile.default]
 src = "src"
 out = "out"
@@ -82,6 +96,7 @@ EOF
 #Solidity のコード内で import "@openzeppelin/contracts/token/ERC20/ERC20.sol"; と書いたとき、
 #lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.solを参照するようになる
 
+=======
 ```
 
 ---
@@ -91,6 +106,13 @@ EOF
 ```bash
 
 cat << 'EOF' > src/TOMATO.sol
+=======
+## 4. コントラクト作成
+
+`src/TOMATO.sol`
+
+```solidity
+>>>>>>> d4136da (Add README at repo root)
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
@@ -148,6 +170,9 @@ ether は ERC20 の 最小単位（10^18 wei 相当） を扱うための書き�
 これは実質的に 100万 TOMATO トークン
 '
 
+=======
+```
+
 ---
 
 ## 5. テストコード
@@ -203,6 +228,14 @@ PRIVATE_KEY=0x<YOUR_PRIVATE_KEY>
 
 ```bash
 cat << 'EOF' > script/DeployTOMATO.s.sol
+=======
+ETHERSCAN_API_KEY=<任意>
+```
+
+### `script/DeployTOMATO.s.sol`
+
+```solidity
+>>>>>>> d4136da (Add README at repo root)
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
@@ -222,6 +255,18 @@ EOF
 ---
 ## 7. デプロイ手順（Sepolia）
 
+=======
+```
+
+---
+
+## 7. デプロイ手順（Sepolia）
+
+### \<YOUR\_ADDRESS> とは？
+
+* `.env` の **PRIVATE\_KEY に対応する自分のウォレットアドレス（EOA）**
+* faucet や残高確認に使う公開アドレス
+
 確認コマンド:
 
 ```bash
@@ -235,12 +280,18 @@ cast wallet address $PRIVATE_KEY
 * faucet や残高確認に使う公開アドレス
 
 ### 残高確認（省略可能）
+=======
+```
+
+### 残高確認
 
 ```bash
 cast balance <YOUR_ADDRESS> --rpc-url $SEPOLIA_RPC_URL
 ```
 
 ### シミュレーション（省略可能）
+=======
+### シミュレーション
 
 ```bash
 forge script script/DeployTOMATO.s.sol:DeployTOMATO \
@@ -257,16 +308,28 @@ chain 11155111：Sepolia テストネットのチェーンID
 
 コマンド実行結果：
 
-![Screenshot]("C:\Users\tell5\Pictures\Screenshots\スクリーンショット 2025-09-03 205320.png")
+![Screenshot]("C:\Users\tell5\Pictures\Screenshots\comand.png")
 
 Sepoliaテストネットにデプロイしたトランザクション詳細：
 
-![Sepolia Transaction Screenshot]("C:\Users\tell5\Pictures\Screenshots\スクリーンショット 2025-09-03 204757.png")
+![Sepolia Transaction Screenshot]("C:\Users\tell5\Pictures\Screenshots\ethscan.png")
 ---
 
 ## 8. デプロイ確認
  <ADDR>はコントラクトアドレスに置き換えて。
  
+=======
+forge script script/DeployTOMATO.s.sol:DeployTOMATO \
+  --rpc-url $SEPOLIA_RPC_URL \
+  --broadcast \
+  --chain 11155111 \
+  -vvvv
+```
+---
+
+## 8. デプロイ確認
+
+>>>>>>> d4136da (Add README at repo root)
 ```bash
 cast code <ADDR> --rpc-url $SEPOLIA_RPC_URL | wc -c
 
@@ -317,7 +380,7 @@ MetaMask → 「トークンをインポート」 → コントラクトアド�
 ---
 
 ##  ファイル構成（完成形）
-
+=======
 ```
 amm-origin/
 ├─ foundry.toml
@@ -337,6 +400,7 @@ amm-origin/
 
 ##  ライセンス
 
+
 このリポジトリのコードは **MIT License** のもとで公開されています。
 誰でも自由に利用・改変・再配布が可能ですが、利用は自己責任でお願いします。
 
@@ -344,14 +408,8 @@ amm-origin/
 
 ##  用語集
 
-了解です 👍
-では README.md に載せられるように、**ABI の保存場所＋ABI・Forge・OpenZeppelin の関係性** をまとめ直しました。
-高校生でもイメージできるように「工場と部品と説明書」の比喩を交えて書いています。
-
----
-
 ```markdown
-## 🧩 Forge・OpenZeppelin・ABI の関係性
+##  Forge・OpenZeppelin・ABI の関係性
 
 ### OpenZeppelin とは
 Ethereum 向けの **定番ライブラリ集** です。  
@@ -385,8 +443,6 @@ out/
 └─ TOMATO.dbg.json   # デバッグ用情報
 
 ````
-
-
 
 
 
